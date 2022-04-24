@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from 'react'
+import './App.css'
+import Case from './components/Case'
+const menuItems = ["Now Playing", "Music", "Games", "Settings"];
+class App extends Component {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  constructor(){
+    super()
+    this.state = {
+      active:0,
+      menuItems: menuItems,
+      activeMenu:true,
+      activeScreen:menuItems[0]
+    }
+  }
+
+  handleMenuItemsChange = (activeIndex)=>{
+    this.setState({
+      active:activeIndex
+    })
+  }
+
+  handleScreenChange = ()=>{
+    this.setState({
+      activeMenu:false,
+      activeScreen:menuItems[this.state.active]
+    })
+  }
+
+  handleActivateMenu = ()=>{
+    this.setState({
+      activeMenu:true,
+    })
+  }
+
+  render() {
+    const {active ,menuItems,activeScreen,activeMenu} = this.state
+    return (
+      <div className='App'>
+        <Case active={active} activeScreen={activeScreen} menuItems={menuItems} activeMenu={activeMenu}handleMenuItemsChange={this.handleMenuItemsChange} handleScreenChange={this.handleScreenChange} handleActivateMenu={this.handleActivateMenu} />
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App
